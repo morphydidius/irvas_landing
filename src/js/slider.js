@@ -1,3 +1,9 @@
+import '@/assets/slick/slick.css';
+import '@/assets/slick/slick-theme.css';
+
+import $ from 'jquery';
+import 'slick-carousel';
+
 $(document).ready(function() {
     $('.glazing_slider').slick({
         infinite: true,
