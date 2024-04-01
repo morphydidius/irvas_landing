@@ -13,6 +13,6 @@ const bindPopupSpec = () => new Modal(
 	'.popup .popup_close',
 );
 
-const showPopupByMin = () => showModalByTime('.popup', 1000);
+const showPopupByMin = () => showModalByTime('.popup', 60000);
 
 export { bindPopupEngineer, bindPopupSpec, showPopupByMin };

@@ -7,7 +7,7 @@
   "scripts": {
     "build:dev": "webpack --env mode=development",
     "build:prod": "webpack --env mode=production",
-    "dev": "webpack serve --open --env mode=development"
+    "dev": "webpack serve --env mode=development"
   },
   "author": "",
   "license": "ISC",

@@ -1,10 +1,5 @@
-import slider from './slider';
-
 import { bindPopupEngineer, bindPopupSpec, showPopupByMin } from '@/js/modules/modals';
-
-function display() {
-	console.log('MAIN PAGE');
-};
+import { initGlazingTabContent } from '@/js/modules/tabs';
 
 const bindAndShowModals = () => {
 	bindPopupEngineer();
@@ -13,6 +8,6 @@ const bindAndShowModals = () => {
 };
 
 export {
-	display,
 	bindAndShowModals,
+	initGlazingTabContent,
 };
