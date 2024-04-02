@@ -1,5 +1,14 @@
-import { bindPopupEngineer, bindPopupSpec, showPopupByMin } from '@/js/modules/modals';
-import { initGlazingTabContent, initDecorationTabContent } from '@/js/modules/tabs';
+import {
+	bindPopupEngineer,
+	bindPopupSpec,
+	showPopupByMin,
+} from '@/js/modules/modals';
+import {
+	initGlazingTabContent,
+	initDecorationTabContent,
+} from '@/js/modules/tabs';
+import { initForms } from '@/js/modules/forms'
+
 
 const bindAndShowModals = () => {
 	bindPopupEngineer();
@@ -11,4 +20,5 @@ export {
 	bindAndShowModals,
 	initGlazingTabContent,
 	initDecorationTabContent,
+	initForms,
 };

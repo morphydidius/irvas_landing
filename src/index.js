@@ -8,6 +8,7 @@ import {
 	bindAndShowModals,
 	initGlazingTabContent,
 	initDecorationTabContent,
+	initForms,
 } from './js/main';
 
 initSliders();
@@ -16,4 +17,5 @@ window.addEventListener('DOMContentLoaded', () => {
 	bindAndShowModals();
 	initGlazingTabContent();
 	initDecorationTabContent();
+	initForms();
 });
