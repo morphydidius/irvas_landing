@@ -26,34 +26,30 @@ export function TabContent(
 
 	}, []);
 
-	this.init = () => {
-		if (!this.header
-			|| !this.tabs
-			|| !this.contents
-			|| !this.isContentFull)
-		{
-			return undefined;
+	if (!this.header
+		|| !this.tabs
+		|| !this.contents
+		|| !this.isContentFull)
+	{
+		return undefined;
+	}
+
+	this.header.addEventListener('click', (e) => {
+		e.preventDefault();
+
+		const chosenTab = e.target.closest(tabsSelector);
+		const chosenStateElem = this.state
+			.find((elem, index) => chosenTab?.classList
+				? Array.from(chosenTab.classList).includes(`tab-${index}`)
+				: false
+			);
+
+		if (chosenStateElem) {
+			this.resetState();
+			this.setActiveTabState(chosenStateElem);
+			this.render();
 		}
-
-		this.header.addEventListener('click', (e) => {
-			e.preventDefault();
-
-			const chosenTab = e.target.closest(tabsSelector);
-			const chosenStateElem = this.state
-				.find((elem, index) => chosenTab?.classList
-					? Array.from(chosenTab.classList).includes(`tab-${index}`)
-					: false
-				);
-
-			if (chosenStateElem) {
-				this.resetState();
-				this.setActiveTabState(chosenStateElem);
-				this.render();
-			}
-		});
-
-		return this;
-	};
+	});
 
 	this.resetState = () => {
 		this.state.forEach(elem => {

@@ -5,8 +5,16 @@ const initGlazingTabContent = () => new TabContent(
 	'.glazing_block',
 	'.glazing_content',
 	'after-click',
-).init();
+);
+
+const initDecorationTabContent = () => new TabContent(
+	'.decoration_slider',
+	'.decoration_item > div',
+	'.decoration_content_item',
+	'after_click',
+);
 
 export {
 	initGlazingTabContent,
+	initDecorationTabContent,
 };
