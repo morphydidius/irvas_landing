@@ -1,9 +1,15 @@
 import { Form } from '@/js/models/Form';
+import { WindowCalc } from '@/js/models/WindowCalc';
 
 const initForms = () => {
-	const forms = Array.from(document.querySelectorAll('form'));
+	const simpleForms = Array.from(document.querySelectorAll('form:not([data-calc])'));
+	const calcFormSelector = 'form[data-calc="end"]';
 
-	forms.forEach(form => new Form(form));
+	simpleForms.forEach(form => new Form(form));
+
+	const calc = new WindowCalc();
+
+	const calcForm = new Form(calcFormSelector, calc.state, calc.callBackOnSubmit);
 };
 
 export {

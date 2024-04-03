@@ -1,11 +1,13 @@
-export function Form(value) {
+import { convertToNumbers } from '@/js/utils/utils';
+
+export function Form(value, formData, callback = () => {}) {
 	const form = typeof value === 'string' ? document.querySelector(value) : value;
 	const textInput = form.querySelector('input[type="text"]');
 	const phoneInput = form.querySelector('input[name="user_phone"]');
 	let statusElem;
 
 	const inputState = {
-		text: '',
+		name: '',
 		phone: '',
 	};
 
@@ -38,12 +40,12 @@ export function Form(value) {
 
 	const addListeners = () => {
 		textInput.addEventListener('input', () => {
-			inputState.text = textInput.value;
+			inputState.name = textInput.value;
 		});
 
 		phoneInput.addEventListener('input', () => {
-			inputState.phone = phoneInput.value.replace(/\D/, '');
-			textInput.value = inputState.text;
+			inputState.phone = convertToNumbers(phoneInput.value);
+			textInput.value = inputState.name;
 			phoneInput.value = inputState.phone;
 		});
 
@@ -51,8 +53,16 @@ export function Form(value) {
 			e.preventDefault();
 
 			if (isFormFilled()) {
-				
 				const data = new FormData(form);
+
+				if (formData) {
+					Object.keys(formData).forEach(key => {
+						if (formData[key]) {
+							data.append(key, formData[key]);
+						}
+					});
+				}
+
 				setFormStatus('sending');
 				render();
 				
@@ -64,6 +74,7 @@ export function Form(value) {
 						setTimeout(() => {
 							setFormStatus('standBy');
 							resetInputState();
+							callback();
 							render();
 						}, 3000);
 					})
@@ -90,7 +101,7 @@ export function Form(value) {
 	};
 
 	const resetInputState = () => {
-		inputState.text = '';
+		inputState.name = '';
 		inputState.phone = '';
 	};
 
@@ -98,7 +109,7 @@ export function Form(value) {
 		const currentFormStatus = Object.keys(status)
 			.find(elem => status[elem].status);
 		statusElem.textContent = status[currentFormStatus].text || '';
-		textInput.value = inputState.text;
+		textInput.value = inputState.name;
 		phoneInput.value = inputState.phone;
 	};
 

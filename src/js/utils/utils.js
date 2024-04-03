@@ -8,4 +8,9 @@ const showModalByTime = (selector, time) => {
 	}, time);
 };
 
-export { showModalByTime };
+const convertToNumbers = (value) => value.replace(/\D/, '');
+
+export {
+	showModalByTime,
+	convertToNumbers,
+};
