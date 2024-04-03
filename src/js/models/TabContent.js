@@ -2,21 +2,22 @@ export function TabContent(
 	headerSelector,
 	tabsSelector,
 	contentsSelector,
-	activeClass = 'active'
+	classActive = 'active',
+	display = 'block',
 ) {
-	this.header = document.querySelector(headerSelector);
-	this.tabs = Array.from(document.querySelectorAll(tabsSelector));
-	this.contents = Array.from(document.querySelectorAll(contentsSelector));
-	this.activeClass = activeClass;
+	const header = document.querySelector(headerSelector);
+	const tabs = Array.from(document.querySelectorAll(tabsSelector));
+	const contents = Array.from(document.querySelectorAll(contentsSelector));
+	const activeClass = classActive;
 
-	this.isContentFull = this.tabs?.length === this.contents?.length;
+	const isContentFull = tabs?.length === contents?.length;
 
-	this.state = this.tabs.reduce((accum, tab, index) => {
+	const state = tabs.reduce((accum, tab, index) => {
 		tab.classList.add(`tab-${index}`);
 
 		const stateElem = {
 			tab: tab,
-			content: this.contents[index],
+			content: contents[index],
 			active: false,
 		};
 
@@ -26,61 +27,64 @@ export function TabContent(
 
 	}, []);
 
-	if (!this.header
-		|| !this.tabs
-		|| !this.contents
-		|| !this.isContentFull)
+	if (!header
+		|| !tabs
+		|| !contents
+		|| !isContentFull)
 	{
 		return undefined;
 	}
 
-	this.header.addEventListener('click', (e) => {
+	header.addEventListener('click', (e) => {
 		e.preventDefault();
 
 		const chosenTab = e.target.closest(tabsSelector);
-		const chosenStateElem = this.state
+		const chosenStateElem = state
 			.find((elem, index) => chosenTab?.classList
 				? Array.from(chosenTab.classList).includes(`tab-${index}`)
 				: false
 			);
 
 		if (chosenStateElem) {
-			this.resetState();
-			this.setActiveTabState(chosenStateElem);
-			this.render();
+			resetState();
+			setActiveTabState(chosenStateElem);
+			render();
 		}
 	});
 
-	this.resetState = () => {
-		this.state.forEach(elem => {
+	const resetState = () => {
+		state.forEach(elem => {
 			elem.active = false;
 		})
 	};
 
-	this.setActiveTabState = (stateElem) => {
+	const setActiveTabState = (stateElem) => {
 		if (stateElem) {
 			stateElem.active = true;
 		}
 	};
 
-	this.reset = () => {
-		this.tabs.forEach(tab => {
+	const reset = () => {
+		tabs.forEach(tab => {
 			tab.classList.remove(activeClass);
 		});
-		this.contents.forEach(content => {
+		contents.forEach(content => {
 			content.classList.remove(activeClass);
 			content.style.display = 'none';
 		});
 	};
 
-	this.showTabContent = (stateElem) => {
+	const showTabContent = (stateElem) => {
 		stateElem.tab.classList.add(activeClass);
 		stateElem.content.classList.add(activeClass);
-		stateElem.content.style.display = 'block';
+		stateElem.content.style.display = display;
 	};
 
-	this.render = () => {
-		this.reset();
-		this.showTabContent(this.state.find(({ active }) => active));
+	const render = () => {
+		reset();
+		showTabContent(state.find(({ active }) => active));
 	};
+
+	setActiveTabState(state[0]);
+	render();
 };

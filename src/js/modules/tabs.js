@@ -14,7 +14,20 @@ const initDecorationTabContent = () => new TabContent(
 	'after_click',
 );
 
+const initPopupCalcTabContent = () => new TabContent(
+	'.balcon_icons',
+	'.balcon_icons_img',
+	'.popup_calc .big_img img',
+	'do_image_more',
+	'inline-block',
+);
+
+const initTabContents = () => {
+	initGlazingTabContent();
+	initDecorationTabContent();
+	initPopupCalcTabContent();
+};
+
 export {
-	initGlazingTabContent,
-	initDecorationTabContent,
+	initTabContents,
 };

@@ -3,26 +3,32 @@ export function Modal(triggerSelectors, modalSelector, closeSelector) {
 		return undefined;
 	}
 
-	this.triggers = document.querySelectorAll(triggerSelectors);
-	this.modal = document.querySelector(modalSelector);
-	this.closeSelector = document.querySelector(closeSelector);
+	const triggers = document.querySelectorAll(triggerSelectors);
+	const modal = document.querySelector(modalSelector);
+	const close = document.querySelector(closeSelector);
+	const modalWindows = document.querySelectorAll('[data-modal');
 
-	this.triggers.forEach(trigger => trigger
+	const closeAllModals = () => {
+		modalWindows.forEach(modal => {
+			modal.style.display = 'none';
+		});
+		
+		document.body.style.overflow = 'auto';
+	};
+
+	const openModal = () => {
+		modal.style.display = 'block';
+		document.body.style.overflow = 'hidden';
+	};
+
+	triggers.forEach(trigger => trigger
 		.addEventListener('click', e => {
 			e.preventDefault();
-			this.modal.style.display = 'block';
-			document.body.style.overflow = 'hidden';
+			closeAllModals();
+			openModal();
 		}));
 
-	this.closeSelector.addEventListener('click', e => {
-		this.modal.style.display = 'none';
-		document.body.style.overflow = 'auto';
-	});
-
-	this.modal.addEventListener('click', (e) => {
-		if (e.target === this.modal) {
-			this.modal.style.display = 'none';
-			document.body.style.overflow = 'auto';
-		}
+	close.addEventListener('click', e => {
+		closeAllModals();
 	});
 };
