@@ -1,0 +1,12 @@
+.fading {
+	animation: 2s fading;
+}
+
+@keyframes fading {
+	from {
+		opacity: 0.1;
+	}
+	to {
+		opacity: 1;
+	}
+}

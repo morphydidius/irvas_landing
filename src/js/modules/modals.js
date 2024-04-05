@@ -31,7 +31,7 @@ const bindPopupCalcEnd = () => new Modal(
 	'.popup_calc_end_close',
 );
 
-const showPopupByMin = () => showModalByTime('.popup', 60000);
+const showPopupByMin = () => showModalByTime('.popup[data-modal]', 60000);
 
 const bindModals = () => {
 	bindPopupEngineer();

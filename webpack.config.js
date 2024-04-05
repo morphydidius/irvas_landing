@@ -10,11 +10,12 @@ module.exports = (env) => {
 		devtool: isDev ? 'inline-source-map' : false,
 		devServer: isDev ? {
 		    static: './build',
+		    hot: true,
 		} : undefined,
 		output: {
 			filename: '[fullhash].bundle.js',
 			path: path.resolve(__dirname, 'build'),
-			assetModuleFilename: 'assets/[name]-[hash][ext]',
+			assetModuleFilename: 'assets/[hash][ext]',
 			clean: true,
 		},
 		module: {
@@ -41,7 +42,7 @@ module.exports = (env) => {
 				},
 				{
 	                test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
-	                type: 'asset/resource',
+	                type: 'asset/inline',
 	            },
 				{
 					test: /\.(?:js|mjs|cjs)$/,
@@ -52,6 +53,7 @@ module.exports = (env) => {
 							presets: [
 								['@babel/preset-env', { targets: "defaults" }]
 							],
+							cacheDirectory: true,
 						}
 					},
 				},
