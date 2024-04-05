@@ -14,7 +14,7 @@ module.exports = (env) => {
 		output: {
 			filename: '[fullhash].bundle.js',
 			path: path.resolve(__dirname, 'build'),
-			assetModuleFilename: 'assets/[hash][ext]',
+			assetModuleFilename: 'assets/[name]-[hash][ext]',
 			clean: true,
 		},
 		module: {
@@ -22,6 +22,18 @@ module.exports = (env) => {
 				{
 			        test: /\.html$/i,
 			        loader: "html-loader",
+			        options: {
+						sources: {
+							list: [
+								"...",
+								{
+									tag: "a",
+									attribute: "href",
+									type: "src",
+								}
+							],
+						}
+					},
 			    },
 				{
 					test: /\.css$/i,
@@ -31,7 +43,7 @@ module.exports = (env) => {
 	                test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
 	                type: 'asset/resource',
 	            },
-	            {
+				{
 					test: /\.(?:js|mjs|cjs)$/,
 					exclude: /node_modules/,
 					use: {
